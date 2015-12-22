@@ -3,6 +3,10 @@ buildscript {
     repositories {
         jcenter()
         maven {
+            name = 'sponge'
+            url = 'http://repo.spongepowered.org/maven'
+        }
+        maven {
             name = 'forge'
             url = 'http://files.minecraftforge.net/maven'
         }
@@ -14,10 +18,13 @@ buildscript {
             exclude module: 'guava'
         }
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.2'
+        classpath 'org.spongepowered:mixingradle:0.1-SNAPSHOT'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+
 ext.minecraftPlugin = plugins.getPlugin('net.minecraftforge.gradle.forge')
 ext.DIR_MCP_MAPPINGS = net.minecraftforge.gradle.common.Constants.DIR_MCP_MAPPINGS
 
