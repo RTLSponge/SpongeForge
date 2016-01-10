@@ -96,4 +96,26 @@ copySrgs << {
     file.append project.file('extraSrg.srg').text
 }
 
+task sdkZip(type: Zip) {
+    classifier = 'sdk'
+
+    from fileTree("sdk");
+    rename ".*\\.gitignore", ".gitignore"
+    eachFile { file ->
+        if (file.getName() == "build.gradle")
+        {
+           file.expand([
+                "mcVersion": project.minecraft.version,
+                "apiVersion": project.minecraft.version + "-" + project.minecraft.forgeVersion,
+                "mappings": project.minecraft.mappings,
+                "version": project.version
+           ])
+        }
+    }
+}
+
+artifacts {
+    archives sdkZip
+}
+
 apply from: 'changelog.gradle'
